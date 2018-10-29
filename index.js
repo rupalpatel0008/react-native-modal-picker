@@ -1,8 +1,7 @@
 'use strict';
 
-import React,{
-    PropTypes
-} from 'react';
+import React from 'react';
+import {PropTypes} from 'prop-types';
 
 import {
     View,
@@ -24,15 +23,15 @@ const propTypes = {
     data: PropTypes.array,
     onChange: PropTypes.func,
     initValue: PropTypes.string,
-    style: View.propTypes.style,
-    selectStyle: View.propTypes.style,
-    optionStyle: View.propTypes.style,
-    optionTextStyle: Text.propTypes.style,
-    sectionStyle: View.propTypes.style,
-    sectionTextStyle: Text.propTypes.style,
-    cancelStyle: View.propTypes.style,
-    cancelTextStyle: Text.propTypes.style,
-    overlayStyle: View.propTypes.style,
+    style: PropTypes.object,
+    selectStyle: PropTypes.object,
+    optionStyle: PropTypes.object,
+    optionTextStyle: PropTypes.object,
+    sectionStyle: PropTypes.object,
+    sectionTextStyle: PropTypes.object,
+    cancelStyle: PropTypes.object,
+    cancelTextStyle: PropTypes.object,
+    overlayStyle: PropTypes.object,
     cancelText: PropTypes.string
 };
 
@@ -110,28 +109,30 @@ export default class ModalPicker extends BaseComponent {
         );
     }
 
-    renderOption(option) {
+    renderOption(option, index, dataLength) {
+        const noBorder = index === dataLength - 1 ? true : false;
         return (
             <TouchableOpacity key={option.key} onPress={()=>this.onChange(option)}>
-                <View style={[styles.optionStyle, this.props.optionStyle]}>
+                <View style={[styles.optionStyle, this.props.optionStyle, noBorder ? { borderBottomWidth: 0 } : {}]}>
                     <Text style={[styles.optionTextStyle,this.props.optionTextStyle]}>{option.label}</Text>
                 </View>
             </TouchableOpacity>)
     }
 
     renderOptionList() {
-        var options = this.props.data.map((item) => {
+        var dataLength = this.props.data.length;
+        var options = this.props.data.map((item, index) => {
             if (item.section) {
                 return this.renderSection(item);
             } else {
-                return this.renderOption(item);
+                return this.renderOption(item, index, dataLength);
             }
         });
 
         return (
             <View style={[styles.overlayStyle, this.props.overlayStyle]} key={'modalPicker'+(componentIndex++)}>
                 <View style={styles.optionContainer}>
-                    <ScrollView keyboardShouldPersistTaps>
+                    <ScrollView keyboardShouldPersistTaps="always">
                         <View style={{paddingHorizontal:10}}>
                             {options}
                         </View>
