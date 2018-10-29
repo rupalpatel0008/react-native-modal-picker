@@ -22,7 +22,7 @@ export default StyleSheet.create({
         borderRadius:BORDER_RADIUS,
         width:width*0.8,
         height:OPTION_CONTAINER_HEIGHT,
-        backgroundColor:'rgba(255,255,255,0.8)',
+        backgroundColor:'#EBF3FF',
         left:width*0.1,
         top:(height-OPTION_CONTAINER_HEIGHT)/2
     },
@@ -49,7 +49,7 @@ export default StyleSheet.create({
     cancelStyle: {
         borderRadius: BORDER_RADIUS,
         width: width * 0.8,
-        backgroundColor: 'rgba(255,255,255,0.8)',
+        backgroundColor: '#EBF3FF',
         padding: PADDING
     },
 
@@ -62,7 +62,7 @@ export default StyleSheet.create({
     optionStyle: {
         padding: PADDING,
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc'
+        borderBottomColor: '#3F5575'
     },
 
     optionTextStyle: {
